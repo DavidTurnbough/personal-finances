@@ -1,3 +1,7 @@
+/*
+ * PURPOSE: Driver class. An application used to keep track of personal finances.
+ * AUTHOR: David Turnbough
+ */
 package turnbough.accounts;
 
 import org.springframework.boot.SpringApplication;

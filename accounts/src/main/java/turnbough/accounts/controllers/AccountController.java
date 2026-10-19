@@ -1,7 +1,8 @@
-//***************************************************
-// PURPOSE:
-// AUTHOR: DAVID TURNBOUGH
-//***************************************************
+/*
+ * PURPOSE: Controller of the application. Handles incoming API calls, routes them to the correct service, and
+ *          returns any requested information.
+ * AUTHOR: DAVID TURNBOUGH
+ */
 package turnbough.accounts.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +12,22 @@ import turnbough.accounts.services.AccountService;
 
 import java.util.List;
 
-//***************************************************
-// CLASS: Account Controller
-//***************************************************
+/*
+ * CLASS: Account Controller
+ */
 @RestController
 @RequestMapping("/accounts")
 public class AccountController
 {
-	//***************************************************
-	// VARIABLES
-	//***************************************************
+	/*
+	 * VARIABLES
+	 */
 	@Autowired
 	AccountService accountService;
 
-	//***************************************************
-	// GET MAPPING
-	//***************************************************
+	/*
+	 * GET MAPPING
+	 */
 	@GetMapping("/allAccounts")
 	public List<Account> getAllAccounts()
 	{
@@ -51,26 +52,26 @@ public class AccountController
 		return accountService.getAccountsByAccountType(accountType);
 	}
 
-	//***************************************************
-	// POST MAPPING
-	//***************************************************
+	/*
+	 * POST MAPPING
+	 */
 	@PostMapping("")
 	public Account createAccount(@RequestBody Account account)
 	{
 		return accountService.createAccount(account);
 	}
 
-	//***************************************************
-	// PUT MAPPING
-	//***************************************************
+	/*
+	 * PUT MAPPING
+	 */
 
 	//TODO: Create a method to update an account
 	//TODO: Change account attributes; account name, address, phone number, etc
 
 
-	//***************************************************
-	// DELETE MAPPING
-	//***************************************************
+	/*
+	 * DELETE MAPPING
+	 */
 	@DeleteMapping("/account/")
 	public void deleteAllAccounts()
 	{
