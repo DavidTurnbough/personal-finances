@@ -1,7 +1,7 @@
-//***************************************************
-// PURPOSE:
-// AUTHOR: David Turnbough
-//***************************************************
+/*
+ * PURPOSE: Performs the logic of the application: Runs any algorithms or routes any database queries.
+ * AUTHOR: David Turnbough
+ */
 package turnbough.accounts.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,22 +12,22 @@ import turnbough.accounts.repositories.AccountRepository;
 import java.util.List;
 import java.util.Scanner;
 
-//***************************************************
-// CLASS: Account Service
-//***************************************************
+/*
+ * CLASS: Account Service
+ */
 @Service
 public class AccountService
 {
 
-	//***************************************************
-	// VARIABLES
-	//***************************************************
+	/*
+	 * VARIABLES
+	 */
 	@Autowired
 	private AccountRepository accountRepository;
 
-	//***************************************************
-	// GET SERVICES
-	//***************************************************
+	/*
+	 * GET SERVICES
+	 */
 	// @RETURN A list of all accounts, otherwise throws an error.
 	public List<Account> getAllAccounts()
 	{
@@ -87,9 +87,9 @@ public class AccountService
 		return accountRepository.getAccountsByAccountType(sanatizedAccountType);
 	}
 
-	//***************************************************
-	// POST SERVICES
-	//***************************************************
+	/*
+	 * POST SERVICES
+	 */
 	public Account createAccount(Account account)
 	{
 		if(accountRepository.existsByAccountName(account.getAccountName()))
@@ -100,9 +100,9 @@ public class AccountService
 		return accountRepository.save(account);
 	}
 
-	//***************************************************
-	// DELETE SERVICES
-	//***************************************************
+	/*
+	 * DELETE SERVICES
+	 */
 	public void deleteAccountById(Long accountId)
 	{
 		accountRepository.deleteById(accountId);
@@ -124,9 +124,9 @@ public class AccountService
 		}
 	}
 
-	//***************************************************
-	// MISC. SERVICES
-	//***************************************************
+	/*
+	 * MISC SERVICES
+	 */
 	private String sanitizeInput(String input)
 	{
 		//TODO: Sanitize and format data.
