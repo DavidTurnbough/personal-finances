@@ -22,8 +22,15 @@ public class AccountService
 	/*
 	 * VARIABLES
 	 */
-	@Autowired
-	private AccountRepository accountRepository;
+	private final AccountRepository accountRepository;
+
+	/*
+	 * CONSTRUCTORS
+	 */
+	public AccountService(AccountRepository accountRepository)
+	{
+		this.accountRepository = accountRepository;
+	}
 
 	/*
 	 * GET SERVICES
@@ -103,11 +110,18 @@ public class AccountService
 	/*
 	 * DELETE SERVICES
 	 */
+	// Deletes an account with the given account id. Will only attempt to delete the account if it exists.
+	// @Param: The account id to be deleted.
 	public void deleteAccountById(Long accountId)
 	{
-		accountRepository.deleteById(accountId);
+		if(accountRepository.existsById(accountId))
+		{
+			accountRepository.deleteById(accountId);
+		}
 	}
 
+
+	// Deletes all accounts. Prompts the user to ensure they want to delete all accounts.
 	public void deleteAllAccounts()
 	{
 		Scanner scanner = new Scanner(System.in);
