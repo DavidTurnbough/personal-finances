@@ -22,8 +22,15 @@ public class AccountService
 	/*
 	 * VARIABLES
 	 */
-	@Autowired
-	private AccountRepository accountRepository;
+	private final AccountRepository accountRepository;
+
+	/*
+	 * CONSTRUCTORS
+	 */
+	public AccountService(AccountRepository accountRepository)
+	{
+		this.accountRepository = accountRepository;
+	}
 
 	/*
 	 * GET SERVICES
@@ -44,6 +51,7 @@ public class AccountService
 	// @RETURN The account with the given id, otherwise returns null.
 	public Account getAccountById(Long accountId)
 	{
+		// TODO: Send message if the account doesn't exist.
 		return accountRepository.findById(accountId)
 				.orElse(null);
 	}
@@ -52,7 +60,8 @@ public class AccountService
 	// @RETURN An account with the given name, otherwise throws an error.
 	public Account getAccountByName(String accountName)
 	{
-		//TODO: Sanitize and format input.
+		accountName = this.sanitizeInput(accountName);
+
 		if(accountRepository.findByAccountName(accountName) == null)
 		{
 			throw new IllegalStateException("Account with name " + accountName + " not found.");
@@ -61,37 +70,37 @@ public class AccountService
 		return accountRepository.findByAccountName(accountName);
 	}
 
-	// @PARAM An account type to be returned
+	// @PARAM The type of accounts to be returned.
 	// @RETURN A list of all accounts with the given type, otherwise throws an error.
 	public List<Account> getAccountsByAccountType(String accountType)
 	{
-		String sanatizedAccountType = "";
+		String sanitizedAccountType = this.sanitizeInput(accountType);
 
-		sanatizedAccountType = accountType.replaceAll("[^a-zA-Z0-9 ]", "");
-
-		if(sanatizedAccountType.equals("all"))
-		{
-			return accountRepository.findAll();
-		}
-
-		System.out.println(sanatizedAccountType);
-
-		sanatizedAccountType = sanatizedAccountType.substring(0, 1).toUpperCase()
-				+ sanatizedAccountType.substring(1).toLowerCase();
-
-		if(accountRepository.getAccountsByAccountType(accountType) == null)
+		// If there are no requested account types, throws an error.
+		if(accountRepository.getAccountsByAccountType(sanitizedAccountType) == null)
 		{
 			throw new IllegalStateException("Account type " + accountType + " not found.");
 		}
 
-		return accountRepository.getAccountsByAccountType(sanatizedAccountType);
+		// Returns all account types.
+		if(sanitizedAccountType.equals("all"))
+		{
+			return accountRepository.findAll();
+		}
+
+		// Returns a list of the requested account types.
+		return accountRepository.getAccountsByAccountType(sanitizedAccountType);
 	}
 
 	/*
 	 * POST SERVICES
 	 */
+	// Purpose: Creates an account. Throws an error if the account already exists.
+	// @Param: An account to be added to the database.
+	// @Return: Returns the account information once saved.
 	public Account createAccount(Account account)
 	{
+		// Check to ensure the account doesn't exist. Will throw an error if the account already exists.
 		if(accountRepository.existsByAccountName(account.getAccountName()))
 		{
 			throw new IllegalStateException("An account with this name already exists.");
@@ -103,34 +112,41 @@ public class AccountService
 	/*
 	 * DELETE SERVICES
 	 */
+	// Purpose: Deletes an account with the given account id. Will only attempt to delete the account if it exists.
+	// @Param: The account id to be deleted.
 	public void deleteAccountById(Long accountId)
 	{
-		accountRepository.deleteById(accountId);
+		// Ensures the account exists before attempting to remove it.
+		if(accountRepository.existsById(accountId))
+		{
+			accountRepository.deleteById(accountId);
+		}
 	}
 
+
+	// Purpose: Deletes all accounts.
 	public void deleteAllAccounts()
 	{
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.printf("Are you sure you want to delete all accounts?");
-
-		String answer = "";
-
-		answer = scanner.nextLine();
-
-		if(answer.equalsIgnoreCase("yes"))
-		{
-			accountRepository.deleteAll();
-		}
+		accountRepository.deleteAll();
 	}
 
 	/*
 	 * MISC SERVICES
 	 */
+	// Purpose: Sanitizes the passed String; removes all non-alphanumeric values from the passed String, and converts
+	//      the string to all lowercase, and capitalizes the first character.
+	// @Param: A string to be sanitized.
+	// @Return: A String that has been sanitized.
 	private String sanitizeInput(String input)
 	{
-		//TODO: Sanitize and format data.
-		return null;
+		String sanatizedInput = "";
+
+		sanatizedInput = input.replaceAll("[^a-zA-Z0-9 ]", "");
+
+		sanatizedInput = sanatizedInput.substring(0, 1).toUpperCase()
+				+ sanatizedInput.substring(1).toLowerCase();
+
+		return sanatizedInput;
 	}
 
 }

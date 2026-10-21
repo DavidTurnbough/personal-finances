@@ -1,3 +1,7 @@
+/*
+ * PURPOSE:
+ * AUTHOR: David Turnbough
+ */
 package turnbough.accounts.models;
 
 /*
