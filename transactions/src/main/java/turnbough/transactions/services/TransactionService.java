@@ -5,8 +5,10 @@
  */
 package turnbough.transactions.services;
 
+import org.springframework.stereotype.Service;
 import turnbough.transactions.repositories.TransactionRepository;
 
+@Service
 public class TransactionService
 {
 	TransactionRepository transactionRepository;
@@ -19,6 +21,4 @@ public class TransactionService
 	{
 		this.transactionRepository = transactionRepository;
 	}
-
-
 }
