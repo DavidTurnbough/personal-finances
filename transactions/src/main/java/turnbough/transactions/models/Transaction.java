@@ -17,16 +17,19 @@ public class Transaction
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long transactionId;
 	private BigDecimal transactionAmount;
+
 	//TODO: Convert transactionDate from String to Date type
 	private String transactionDate;
 	private String transactionDescription;
-	private String transactionCategory;
 
 	@Enumerated(EnumType.STRING)
-	private String transactionStatus;
+	private TransactionCategory transactionCategory;
 
 	@Enumerated(EnumType.STRING)
-	private String transactionType;
+	private TransactionStatus transactionStatus;
+
+	@Enumerated(EnumType.STRING)
+	private TransactionType transactionType;
 
 	/**
 	 *
@@ -37,7 +40,7 @@ public class Transaction
 	 * @param transactionStatus The status of the transaction (paid, due, etc.)
 	 * @param transactionType The type of the transaction (debit, credit card, etc.)
 	 */
-	public Transaction( BigDecimal transactionAmount, String transactionDate, String transactionDescription, String transactionCategory, String transactionStatus, String transactionType)
+	public Transaction( BigDecimal transactionAmount, String transactionDate, String transactionDescription, TransactionCategory transactionCategory, TransactionStatus transactionStatus, TransactionType transactionType)
 	{
 		this.transactionAmount = transactionAmount;
 		this.transactionDate = transactionDate;

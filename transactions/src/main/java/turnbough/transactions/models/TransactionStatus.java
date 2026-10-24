@@ -1,4 +1,4 @@
-package turnbough.accounts.models;
+package turnbough.transactions.models;
 
 /**
  * Keeps track of a transactions status; payable, pending, complete
