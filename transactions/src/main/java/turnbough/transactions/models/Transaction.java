@@ -28,5 +28,22 @@ public class Transaction
 	@Enumerated(EnumType.STRING)
 	private String transactionType;
 
-
+	/**
+	 *
+	 * @param transactionAmount The amount of the transaction
+	 * @param transactionDate The date of the transaction
+	 * @param transactionDescription A brief description of the transaction
+	 * @param transactionCategory The category of the transaction
+	 * @param transactionStatus The status of the transaction (paid, due, etc.)
+	 * @param transactionType The type of the transaction (debit, credit card, etc.)
+	 */
+	public Transaction( BigDecimal transactionAmount, String transactionDate, String transactionDescription, String transactionCategory, String transactionStatus, String transactionType)
+	{
+		this.transactionAmount = transactionAmount;
+		this.transactionDate = transactionDate;
+		this.transactionDescription = transactionDescription;
+		this.transactionCategory = transactionCategory;
+		this.transactionStatus = transactionStatus;
+		this.transactionType = transactionType;
+	}
 }

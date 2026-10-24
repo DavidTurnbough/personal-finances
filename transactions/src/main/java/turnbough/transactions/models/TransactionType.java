@@ -7,23 +7,19 @@ package turnbough.transactions.models;
  */
 public enum TransactionType
 {
-	DEPOSIT("Deposit", true),
-	WITHDRAW("Withdraw", false),
-	CREDIT("Credit", true),
-	TRANSFER("Transfer", false);
+	DEBIT("Debit"),
+	CREDIT_CARD("Credit Card"),
+	PAYMENT_PLAN("Payment Plan");
 
 	private final String displayName;
-	private final boolean increasesBalance;
 
 	/**
 	 *
 	 * @param displayName the human-readable name of the transaction type
-	 * @param increasesBalance true if the transaction type increases the account balance
 	 */
-	TransactionType(String displayName, boolean increasesBalance)
+	TransactionType(String displayName)
 	{
 		this.displayName = displayName;
-		this.increasesBalance = increasesBalance;
 	}
 
 	/**
@@ -35,13 +31,6 @@ public enum TransactionType
 		return this.displayName;
 	}
 
-	/**
-	 *
-	 * @return true if the transfer type increases the account balance
-	 */
-	public boolean increasesBalance()
-	{
-		return increasesBalance;
-	}
+
 
 }
