@@ -1,13 +1,13 @@
-/**
- * TransactionService. Used to perform business logic on personal-finances.
- *
- * @author David Turnbough
- */
 package turnbough.transactions.services;
 
 import org.springframework.stereotype.Service;
 import turnbough.transactions.repositories.TransactionRepository;
 
+/**
+ * TransactionService. Used to perform business logic on personal-finances.
+ *
+ * @author David Turnbough
+ */
 @Service
 public class TransactionService
 {

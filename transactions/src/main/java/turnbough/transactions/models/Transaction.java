@@ -1,17 +1,14 @@
+package turnbough.transactions.models;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+
 /**
  * Transaction. Used to model a personal-finance transaction.
  *
  * @author David Turnbough
  */
-package turnbough.transactions.models;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.math.BigDecimal;
-
 @Entity
 public class Transaction
 {
@@ -20,8 +17,16 @@ public class Transaction
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long transactionId;
 	private BigDecimal transactionAmount;
+	//TODO: Convert transactionDate from String to Date type
 	private String transactionDate;
 	private String transactionDescription;
+	private String transactionCategory;
 
+	@Enumerated(EnumType.STRING)
+	private String transactionStatus;
+
+	@Enumerated(EnumType.STRING)
 	private String transactionType;
+
+
 }
