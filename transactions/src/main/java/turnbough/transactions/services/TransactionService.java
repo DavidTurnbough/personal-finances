@@ -62,4 +62,15 @@ public class TransactionService
 		return transactionRepository.findById(transactionId)
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with id: " + transactionId));
 	}
+
+	/**
+	 * Adds a transaction record to the database.
+	 *
+	 * @param transaction The transaction to be added to the database.
+	 * @return The transaction after it is saved to the database.
+	 */
+	public Transaction addTransaction(Transaction transaction)
+	{
+		return transactionRepository.save(transaction);
+	}
 }
