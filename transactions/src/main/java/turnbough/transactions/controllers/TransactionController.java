@@ -6,11 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import turnbough.transactions.models.Transaction;
 import turnbough.transactions.services.TransactionService;
 
@@ -64,5 +62,19 @@ public class TransactionController
 	{
 		return transactionService.getTransactionById(transactionId);
 
+	}
+
+	/**
+	 * Adds a transaction record to the database.
+	 *
+	 * @param transaction The transaction to be stored in the database.
+	 * @return The transaction that was saved to the database and an HTTP status indicating that it created.
+	 */
+	@PostMapping
+	public ResponseEntity<Transaction> addTransaction(@RequestBody Transaction transaction)
+	{
+		Transaction savedTransaction = transactionService.addTransaction(transaction);
+
+		return new ResponseEntity<>(savedTransaction, HttpStatus.CREATED);
 	}
 }
