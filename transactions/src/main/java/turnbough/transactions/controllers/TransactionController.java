@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import turnbough.transactions.models.Transaction;
 import turnbough.transactions.services.TransactionService;
 
-import java.util.List;
 
 /**
  * TransactionController. Used to route API calls.
@@ -45,7 +44,7 @@ public class TransactionController
 	 */
 	@GetMapping("/all")
 	public ResponseEntity<Page<Transaction>> getAllTransactions(@PageableDefault(page = 0, size = 20,
-			sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable)
+			direction = Sort.Direction.DESC) Pageable pageable)
 	{
 		Page<Transaction> page = transactionService.getAllTransactions(pageable);
 		return ResponseEntity.ok(page);
@@ -77,4 +76,35 @@ public class TransactionController
 
 		return new ResponseEntity<>(savedTransaction, HttpStatus.CREATED);
 	}
+
+	/**
+	 * Updates an existing transaction in the database.
+	 *
+	 * @param transactionId The ID of the transaction being updated.
+	 * @param transaction The updated transaction information.
+	 * @return The transaction that was updated and an HTTP status showing everything is okay.
+	 */
+	@PutMapping("/{transactionId}")
+	public ResponseEntity<Transaction> updateTransaction(@PathVariable Long transactionId,
+	                                                     @RequestBody Transaction transaction)
+	{
+		transaction.setTransactionId(transactionId);
+		Transaction updatedTransaction = transactionService.updateTransaction(transaction);
+
+		return new ResponseEntity<>(updatedTransaction, HttpStatus.OK);
+	}
+
+	/**
+	 * Removes a transaction from the database with the given ID.
+	 *
+	 * @param transactionId The ID of the transaction to be removed from the database.
+	 */
+	@DeleteMapping("/{transactionId}")
+	public ResponseEntity<Void> deleteTransaction(@PathVariable Long transactionId)
+	{
+		transactionService.deleteTransaction(transactionId);
+
+		return ResponseEntity.noContent().build();
+	}
+
 }

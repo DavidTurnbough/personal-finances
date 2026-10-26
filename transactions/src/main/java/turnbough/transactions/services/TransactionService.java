@@ -1,16 +1,15 @@
 package turnbough.transactions.services;
 
+import jakarta.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.velocity.exception.ResourceNotFoundException;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import turnbough.transactions.models.Transaction;
 import turnbough.transactions.repositories.TransactionRepository;
 
-import java.util.List;
 
 /**
  * TransactionService. Used to perform business logic on personal-finances.
@@ -55,6 +54,7 @@ public class TransactionService
 	 * Queries the database for a transaction with a given ID.
 	 *
 	 * @param transactionId The ID of the transaction to be queried.
+	 *
 	 * @return A database record of a transaction.
 	 */
 	public Transaction getTransactionById(Long transactionId)
@@ -67,10 +67,49 @@ public class TransactionService
 	 * Adds a transaction record to the database.
 	 *
 	 * @param transaction The transaction to be added to the database.
+	 *
 	 * @return The transaction after it is saved to the database.
 	 */
+	@Transactional
 	public Transaction addTransaction(Transaction transaction)
 	{
 		return transactionRepository.save(transaction);
+	}
+
+	/**
+	 * Updates an existing transaction in the database.
+	 *
+	 * @param transaction A transaction object containing the information to be updated.
+	 *
+	 * @return The transaction after being updated.
+	 *
+	 * @throws ResourceNotFoundException Thrown when the ID of the transaction be updated doesn't exist in the
+	 * database.
+	 */
+	@Transactional
+	public Transaction updateTransaction(Transaction transaction)
+	{
+		if (!transactionRepository.existsById(transaction.getTransactionId()))
+		{
+			throw new ResourceNotFoundException("Transaction not found with id: " + transaction.getTransactionId());
+		}
+
+		return transactionRepository.save(transaction);
+	}
+
+	/**
+	 * Removes a transaction from the database with the given ID.
+	 *
+	 * @param transactionId The ID of the transaction to delete from the database.
+	 */
+	@Transactional
+	public void deleteTransaction(Long transactionId)
+	{
+		if (!transactionRepository.existsById(transactionId))
+		{
+			throw new ResourceNotFoundException("Transaction not found with id: " + transactionId);
+		}
+
+		transactionRepository.deleteById(transactionId);
 	}
 }

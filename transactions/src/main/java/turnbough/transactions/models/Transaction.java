@@ -44,7 +44,14 @@ public class Transaction
 	@JsonProperty("transaction_type")
 	private TransactionType transactionType;
 
+	public Transaction()
+	{
+	}
 
+	public Transaction(Long transactionId)
+	{
+		this.transactionId = transactionId;
+	}
 
 	//*****
 	// Constructors
