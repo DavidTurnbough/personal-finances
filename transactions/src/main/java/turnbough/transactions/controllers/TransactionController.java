@@ -36,6 +36,9 @@ public class TransactionController
 		this.transactionService = transactionService;
 	}
 
+	//*****
+	// Get Mapping
+	//*****
 	/**
 	 * Retrieve a range of transactions. Defaulted to the last 20 transactions.
 	 *
@@ -50,6 +53,8 @@ public class TransactionController
 		return ResponseEntity.ok(page);
 	}
 
+	//TODO: Get all with transaction name.
+
 	/**
 	 * Performs a database request for single record with the given transaction Id.
 	 *
@@ -63,6 +68,9 @@ public class TransactionController
 
 	}
 
+	//*****
+	// Post Mapping
+	//*****
 	/**
 	 * Adds a transaction record to the database.
 	 *
@@ -77,6 +85,9 @@ public class TransactionController
 		return new ResponseEntity<>(savedTransaction, HttpStatus.CREATED);
 	}
 
+	//*****
+	// Put Mapping
+	//*****
 	/**
 	 * Updates an existing transaction in the database.
 	 *
@@ -94,6 +105,9 @@ public class TransactionController
 		return new ResponseEntity<>(updatedTransaction, HttpStatus.OK);
 	}
 
+	//*****
+	// Delete Mapping
+	//*****
 	/**
 	 * Removes a transaction from the database with the given ID.
 	 *
@@ -106,5 +120,7 @@ public class TransactionController
 
 		return ResponseEntity.noContent().build();
 	}
+
+	//TODO: Delete all
 
 }

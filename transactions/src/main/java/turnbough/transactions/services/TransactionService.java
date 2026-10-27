@@ -19,9 +19,15 @@ import turnbough.transactions.repositories.TransactionRepository;
 @Service
 public class TransactionService
 {
+	//*****
+	// Variables
+	//*****
 	private final TransactionRepository transactionRepository;
 	private static final Logger log = LogManager.getLogger(TransactionService.class);
 
+	//*****
+	// Constructors
+	//*****
 	/**
 	 * Constructor
 	 *
@@ -32,6 +38,9 @@ public class TransactionService
 		this.transactionRepository = transactionRepository;
 	}
 
+	//*****
+	// Getter Services
+	//*****
 	/**
 	 * Queries the database for a group of transactions. Defaults to the last 20 actions.
 	 *
@@ -63,6 +72,9 @@ public class TransactionService
 				.orElseThrow(() -> new ResourceNotFoundException("Transaction not found with id: " + transactionId));
 	}
 
+	//*****
+	// Adder Services
+	//*****
 	/**
 	 * Adds a transaction record to the database.
 	 *
@@ -76,6 +88,9 @@ public class TransactionService
 		return transactionRepository.save(transaction);
 	}
 
+	//*****
+	// Update Services
+	//*****
 	/**
 	 * Updates an existing transaction in the database.
 	 *
@@ -97,6 +112,9 @@ public class TransactionService
 		return transactionRepository.save(transaction);
 	}
 
+	//*****
+	// Delete Services
+	//*****
 	/**
 	 * Removes a transaction from the database with the given ID.
 	 *

@@ -44,6 +44,12 @@ public class Transaction
 	@JsonProperty("transaction_type")
 	private TransactionType transactionType;
 
+	@JsonProperty("account_id")
+	private Long accountId;
+
+	//*****
+	// Constructors
+	//*****
 	public Transaction()
 	{
 	}
@@ -53,9 +59,6 @@ public class Transaction
 		this.transactionId = transactionId;
 	}
 
-	//*****
-	// Constructors
-	//*****
 	/**
 	 *
 	 * @param transactionAmount The amount of the transaction
@@ -64,8 +67,10 @@ public class Transaction
 	 * @param transactionCategory The category of the transaction
 	 * @param transactionStatus The status of the transaction (paid, due, etc.)
 	 * @param transactionType The type of the transaction (debit, credit card, etc.)
+	 * @param accountId The account associated with the transaction
 	 */
-	public Transaction( BigDecimal transactionAmount, String transactionDate, String transactionDescription, TransactionCategory transactionCategory, TransactionStatus transactionStatus, TransactionType transactionType)
+	public Transaction( BigDecimal transactionAmount, String transactionDate, String transactionDescription, TransactionCategory transactionCategory,
+	                    TransactionStatus transactionStatus, TransactionType transactionType, Long accountId)
 	{
 		this.transactionAmount = transactionAmount;
 		this.transactionDate = transactionDate;
@@ -73,6 +78,7 @@ public class Transaction
 		this.transactionCategory = transactionCategory;
 		this.transactionStatus = transactionStatus;
 		this.transactionType = transactionType;
+		this.accountId = accountId;
 	}
 
 	//*****
@@ -113,6 +119,11 @@ public class Transaction
 		return transactionType;
 	}
 
+	public Long getAccountId()
+	{
+		return accountId;
+	}
+
 	//*****
 	// Setter Methods
 	//*****
@@ -149,6 +160,11 @@ public class Transaction
 	public void setTransactionType(TransactionType transactionType)
 	{
 		this.transactionType = transactionType;
+	}
+
+	public void setAccountId(Long accountId)
+	{
+		this.accountId = accountId;
 	}
 
 
