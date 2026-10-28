@@ -166,6 +166,4 @@ public class Transaction
 	{
 		this.accountId = accountId;
 	}
-
-
 }
